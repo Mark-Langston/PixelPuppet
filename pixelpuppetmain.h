@@ -9,8 +9,10 @@
 #include <QDockWidget>
 #include <QVBoxLayout>
 #include <QMenuBar>
+#include <QListWidget>
 #include <QSizeGrip>
-#include <QSlider>
+#include <QLabel>       // Added for width/height display
+#include <QSlider>      // Added for resizing sliders
 
 class PixelPuppetMain : public QMainWindow {
     Q_OBJECT
@@ -24,31 +26,59 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
+    void resizeEvent(QResizeEvent *event) override;
 
 private slots:
     void chooseColor();
     void saveImage();
     void loadImage();
     void setCanvasSize();
+    void addLayer();
+    void removeLayer();
+    void toggleLayerVisibility();
+    void setBrushType(int index);
+    void bucketFill();
+    void importImage();
+    void deleteSelectedLayer();
+    void layerSelectionChanged();
+    void updateCanvasSize();  // New slot for updating canvas size when sliders change
 
 private:
-    void setupPalette(QVBoxLayout *toolLayout);     // Function to set up color palette
-    void setupBrushSizes(QVBoxLayout *toolLayout);  // Function to set up brush sizes
-    void setupGridToggle(QVBoxLayout *toolLayout);  // Function to set up grid toggle
-    void setupDockWidget();                         // Function to set up the dock widget
-    void setupMenu();                               // Function to set up the file menu
-    void setupResizeHandle();                       // Function to add resizable handle
-    void setupCanvasScaler(QVBoxLayout *toolLayout); // Function to add canvas scaler
-    void setupExportButton(QVBoxLayout *toolLayout); // Function to add export button
+    enum BrushType { Normal, Spray, Square };
+    void setupPalette(QVBoxLayout *toolLayout);
+    void setupBrushSizes(QVBoxLayout *toolLayout);
+    void setupBrushTypes(QVBoxLayout *toolLayout);
+    void setupGridToggle(QVBoxLayout *toolLayout);
+    void setupLayerToolbar(QVBoxLayout *toolLayout);
+    void setupDockWidget();
+    void setupMenu();
+    void setupResizeHandle();
+    void updateCanvas();
+    void updateLayerList();
+    void drawNormalBrush(QPainter &painter, const QPoint &pos);
+    void drawSprayBrush(QPainter &painter, const QPoint &pos);
+    void drawSquareBrush(QPainter &painter, const QPoint &pos);
 
-    QColor currentColor;       // Currently selected color
-    QImage canvas;             // Canvas for drawing
-    QPoint lastPoint;          // Last point drawn
-    int brushSize;             // Current brush size
-    bool drawing;              // Whether the user is currently drawing
-    bool showGrid;             // Whether the grid is visible
-    QDockWidget *toolDock;     // Dock widget for tools
-    QSizeGrip *sizeGrip;       // Resizable handle at bottom right corner
+    QColor currentColor;
+    QImage canvas;
+    QPoint lastPoint;
+    int brushSize;
+    bool drawing;
+    bool showGrid;
+    BrushType currentBrushType;
+    QDockWidget *toolDock;
+    QSizeGrip *sizeGrip;
+
+    QList<QImage> layers;
+    QList<bool> layerVisibility;
+    int currentLayer;
+
+    QListWidget *layerListWidget;
+
+    QLabel *widthLabel;  // Added to display canvas width
+    QLabel *heightLabel; // Added to display canvas height
+    QSlider *widthSlider;  // Slider for width
+    QSlider *heightSlider; // Slider for height
 };
 
 #endif // PIXELPUPPETMAIN_H
