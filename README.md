@@ -10,6 +10,10 @@
 - **Canvas Resizing**: Dynamically change the canvas size to suit your needs.
 - **Export Options**: Save your artwork as PNG or JPG files.
 
+## Screenshot
+
+![PixelPuppet Screenshot](pixelPuppetScreenshot.png)
+
 ## Installation
 
 ### Prerequisites
