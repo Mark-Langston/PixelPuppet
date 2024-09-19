@@ -18,7 +18,6 @@ add_executable(${PROJECT_NAME} WIN32
     main.cpp
     pixelpuppetmain.cpp
     pixelpuppetmain.h
-    app_icon.rc  # Include the resource file to embed the EXE icon
 )
 
 # Link Qt6 libraries
