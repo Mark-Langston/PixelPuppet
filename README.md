@@ -12,7 +12,7 @@
 
 ## Screenshot
 
-![PixelPuppet Screenshot](pixelPuppetScreenshot.png)
+![PixelPuppet Screenshot](PixelPuppetScreenshot.png)
 
 ## Installation
 
