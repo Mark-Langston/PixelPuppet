@@ -45,9 +45,8 @@ void PixelPuppetMain::setupDockWidget() {
     // Create the dock widget for the tools
     toolDock = new QDockWidget("Tools", this);
     toolDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-    toolDock->setFloating(false);  // Allow it to float, like in GIMP
+    toolDock->setFloating(false); 
 
-    // Resize the dock widget to a smaller size (similar to GIMP)
     toolDock->setFixedWidth(200);  // Adjust the size to make it smaller
 
     // Create a container widget to hold all the tool elements
