@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/assets/icons">
+        <file>assets/icons/brush.svg</file>
+        <file>assets/icons/color-picker.svg</file>
+        <file>assets/icons/eraser.svg</file>
+        <file>assets/icons/fill.svg</file>
+    </qresource>
+</RCC>
