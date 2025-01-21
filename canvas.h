@@ -5,8 +5,14 @@
 #include <QImage>
 #include <QColor>
 #include <QVector>
+#include <QPoint>
 
 class QPainter;
+class QMouseEvent;
+class QPaintEvent;
+class QResizeEvent;
+class QSlider;
+class QColorDialog;
 
 class Canvas : public QWidget {
     Q_OBJECT

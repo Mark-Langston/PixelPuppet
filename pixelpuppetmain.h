@@ -2,30 +2,53 @@
 #define PIXELPUPPETMAIN_H
 
 #include <QMainWindow>
-#include <QIcon>
-#include <QSlider>  // Include the slider header
-#include <QLabel>  // Include label for the slider
+#include <QLabel>
+#include <QMenu>
+#include <QAction>
+#include <QToolBar>
+#include <QStatusBar>
+#include <QMessageBox>
+#include "canvas.h"
+#include "NetworkManager.h"
+#include "PaintTogetherDialog.h"
+#include "sessioncreateddialog.h"  // Include the new session created dialog
+#include <QTcpServer>
+#include <QTcpSocket>
+#include <QHostAddress>
+#include <QNetworkInterface>
+#include <QCryptographicHash>
+#include <QByteArray>
 
-class Canvas;
-
-class PixelPuppetMain : public QMainWindow {
+class PixelPuppetMain : public QMainWindow
+{
     Q_OBJECT
 
 public:
     explicit PixelPuppetMain(QWidget *parent = nullptr);
+    ~PixelPuppetMain();
 
 private:
+    Canvas *canvas;
+    NetworkManager *networkManager;
+    QLabel *userCountLabel;  // QLabel for user count
+
     void setupMenu();
     void setupToolbar();
-    QIcon loadIcon(const QString &iconName);  // Declare the loadIcon function
-    void showAboutDialog();  // Declare the showAboutDialog function
-    void resizeCanvas(int width, int height);  // Declare the resizeCanvas slot
+    void resizeCanvas(int width, int height);
+    void showAboutDialog();
+    void updateUserCount(int guestCount);  // Method to update the user count
+    QString generateSessionCode();  // Method to generate the session code
+    QString base64Encode(const QByteArray& data); // Base64 encoding function
+    QByteArray base64Decode(const QString& encodedString); // Base64 decoding function
+    QString getLocalIPv6Address(); // New method to get the local IPv6 address
 
-    Canvas *canvas; // Central drawing canvas
+private slots:
+    void onPaintTogetherClicked();
+    void onSessionCreated(QString sessionCode);
+    void onSessionJoined(QString sessionCode);
 
-    // New members to manage the brush size slider
-    QSlider *brushSizeSlider;  // Slider to adjust brush size
-    QLabel *brushSizeLabel;    // Label to display brush size text next to the slider
+signals:
+    void userCountUpdated(int guestCount);  // Signal to update user count in main
 };
 
 #endif // PIXELPUPPETMAIN_H
